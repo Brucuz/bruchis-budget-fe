@@ -10,20 +10,41 @@ export default {
             store,
         }
     },
+    data() {
+        return {
+            email: "",
+            password: "",
+        };
+    },
     methods: {
-        logIn: async () => {
-            const token = await signIn("bertodaniele83@gmail.com", "Puppazza1!");
-            this.setToken(token);
-            setTimeout(() => {
-                console.log(this.accessToken);
-            }, 1000)
+        async logIn() {
+            const token = await signIn(this.email, this.password);
+            console.log(token);
+            this.store.setToken(token);
         }
     }
 }
 </script>
 
 <template>
-    <button v-on:click="logIn()">Login</button>
+    <form @submit.prevent="logIn()">
+        <!-- Email input -->
+        <H1>{{ store.isLoggedIn }}</H1>
+        <div class="form-outline mb-4">
+            <input v-model="email" type="email" id="form2Example1" class="form-control" />
+            <label class="form-label" for="form2Example1">Email</label>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <input v-model="password" type="password" id="form2Example2" class="form-control" />
+            <label class="form-label" for="form2Example2">Password</label>
+        </div>
+
+        <!-- Submit button -->
+        <button @click="logIn()" type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+    </form>
 </template>
 
 <style>

@@ -24,6 +24,7 @@ onAuthStateChanged(auth, user =>{
 const signIn = async (email, pwd) =>{
     console.log("IN");
     const result = await signInWithEmailAndPassword(auth, email, pwd);
+    console.log(result.user)
     return result.user.accessToken;
     //console.log("fasdfsad" + JSON.stringify() + "----" + JSON.stringify(result.user.stsTokenManager.expirationTime));
 };
