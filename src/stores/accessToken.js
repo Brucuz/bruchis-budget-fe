@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import jwt_decode from "jwt-decode";
 
 export const accessTokeStore = defineStore("accessToken", {
-  state: () => ({token: JSON.stringify(localStorage.getItem("bruchisBudgetToken")) || "", expirationDate: null}),
+  state: () => ({token: JSON.parse(localStorage.getItem("bruchisBudgetToken")) || "", expirationDate: null}),
   getters: {
     accessToken: (state) => state.accessToken,
     isLoggedIn: (state) => state.token && state.expirationDate < new Date()

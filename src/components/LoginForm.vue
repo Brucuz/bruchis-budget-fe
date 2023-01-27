@@ -1,4 +1,5 @@
 <script>
+import { routerKey } from "vue-router";
 import { signIn } from "../services/firebase";
 import { accessTokeStore } from "../stores/accessToken";
 
@@ -19,8 +20,8 @@ export default {
     methods: {
         async logIn() {
             const token = await signIn(this.email, this.password);
-            console.log(token);
             this.store.setToken(token);
+            this.$router.push('/');
         }
     }
 }
@@ -29,7 +30,6 @@ export default {
 <template>
     <form @submit.prevent="logIn()">
         <!-- Email input -->
-        <H1>{{ store.isLoggedIn }}</H1>
         <div class="form-outline mb-4">
             <input v-model="email" type="email" id="form2Example1" class="form-control" />
             <label class="form-label" for="form2Example1">Email</label>
