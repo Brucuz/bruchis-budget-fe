@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, addDoc, collection, Timestamp } from "firebase/firestore";
 
 const firebaseApp = initializeApp({
     apiKey: "AIzaSyB6EvtHxDZctIHI6fqtf34jPxPZF81sgvE",
@@ -12,16 +13,15 @@ const firebaseApp = initializeApp({
 
 const auth = getAuth(firebaseApp);
 
-onAuthStateChanged(auth, user =>{
-    if(user != null){
+onAuthStateChanged(auth, user => {
+    if (user != null) {
         console.log("logged in");
-    } else { 
+    } else {
         console.log("not logged in");
     }
 })
 
-
-const signIn = async (email, pwd) =>{
+const signIn = async (email, pwd) => {
     console.log("IN");
     const result = await signInWithEmailAndPassword(auth, email, pwd);
     console.log(result.user)
@@ -29,4 +29,14 @@ const signIn = async (email, pwd) =>{
     //console.log("fasdfsad" + JSON.stringify() + "----" + JSON.stringify(result.user.stsTokenManager.expirationTime));
 };
 
-export {signIn};
+const db = getFirestore(firebaseApp);
+
+const addExpenses = async (amount, category, description, date) => {
+    await addDoc(collection(db, "expenses"), {
+        amount,
+        category,
+        description,
+        date: Timestamp.fromDate(date)
+    });
+}
+export { signIn, addExpenses };
