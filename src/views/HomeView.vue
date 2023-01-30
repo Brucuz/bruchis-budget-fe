@@ -1,13 +1,25 @@
 
 <script>
-import LoginForm from "../components/LoginForm.vue";
+import ExpensesForm from "../components/ExpensesForm.vue";
 import { addExpenses } from "../services/firebase";
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
-  components: { LoginForm },
+  components: {  Datepicker, ExpensesForm },
+  data() {
+    return {
+      showModal: false
+    };
+  },
   methods: {
-    addExpenses(amount, category, description, date){
+    addExpenses(amount, category, description, date) {
       addExpenses(amount, category, description, date);
+      this.showModal = false;
+    },
+    hideModal(){
+      this.showModal = false;
+      console.log("azzz")
     }
   }
 }
@@ -15,26 +27,30 @@ export default {
 
 <template>
   <div class="container">
-    <div class="form-outline mb-4">
-      <input type="number" id="form2Example1" class="form-control" />
-      <label class="form-label" for="form2Example1">Euro</label>
+    <button class="btn btn-primary btn-block mb-4" @click="showModal=true">Aggiungi spesa</button>
+    <div class="custom-modal" v-if="showModal">
+      <div class="custom-modal-content">
+        <ExpensesForm :onSubmit="addExpenses" :hide="hideModal"/>
+      </div>
     </div>
-    <div class="form-outline mb-4">
-      <input type="text" id="form2Example1" class="form-control" />
-      <label class="form-label" for="form2Example1">Categoria</label>
-    </div>
-    <div class="form-outline mb-4">
-      <input type="text" id="form2Example1" class="form-control" />
-      <label class="form-label" for="form2Example1">Descrizione</label>
-    </div>
-    <div class="form-outline mb-4">
-      <input type="text" id="form2Example1" class="form-control" />
-      <label class="form-label" for="form2Example1">Data</label>
-    </div>
-    <div class="form-outline mb-4">
-      <button @click="addExpenses(10, 'tommaso', 'pannolotti', new Date())" type="button"
-        class="btn btn-primary btn-block mb-4">Sign in</button>
-    </div>
-
   </div>
 </template>
+
+<style>
+.custom-modal{
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.7);
+}  
+.custom-modal-content{
+ background-color: white;
+ padding: 30px 10px 10px 10px;
+ border-radius: 5px; 
+}
+</style>
