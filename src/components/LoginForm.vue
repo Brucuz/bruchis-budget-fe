@@ -28,7 +28,7 @@ export default {
 </script>
 
 <template>
-    <form @submit.prevent="logIn()">
+    <form @submit.prevent="logIn()" class="login-form">
         <!-- Email input -->
         <div class="form-outline mb-4">
             <input v-model="email" type="email" id="form2Example1" class="form-control" />
@@ -48,5 +48,7 @@ export default {
 </template>
 
 <style>
-
+.login-form{
+    margin: 50px
+}
 </style>

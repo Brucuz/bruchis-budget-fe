@@ -27,7 +27,12 @@ export default {
 
 <template>
   <div class="container">
-    <button class="btn btn-primary btn-block mb-4" @click="showModal=true">Aggiungi spesa</button>
+    <div class="buttons-container">
+      <button class="btn btn-outline-primary btn-block mb-4" @click="showModal=true">Aggiungi spesa</button>
+    </div>
+    <div class="buttons-container">
+      <button class="btn btn-outline-primary btn-block mb-4">Aggiungi entrata</button>
+    </div>
     <div class="custom-modal" v-if="showModal">
       <div class="custom-modal-content">
         <ExpensesForm :onSubmit="addExpenses" :hide="hideModal"/>
@@ -52,5 +57,12 @@ export default {
  background-color: white;
  padding: 30px 10px 10px 10px;
  border-radius: 5px; 
+}
+.buttons-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  justify-content: flex-end;
+
 }
 </style>
